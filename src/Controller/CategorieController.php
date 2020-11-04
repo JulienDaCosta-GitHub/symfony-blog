@@ -36,9 +36,12 @@ class CategorieController extends AbstractController
 
         $categories = $em->getRepository(Categorie::class)->findAll();
 
+        $categorieParDate = $em->getRepository(Categorie::class)->findByDate('2020-11-03');
+
         return $this->render('categorie/index.html.twig', [
             'categories' => $categories,
-            'ajout' => $form->createView()
+            'ajout' => $form->createView(),
+            'categorieParDate' => $categorieParDate
         ]);
     }
 
