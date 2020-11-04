@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<table border="1">
+    <thread>
+        <tr>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Création</th>
+            <th>Catégorie</th>
+        </tr>
+    </thread>
+
+    <nav>
+    </nav>
+
+    <tbody>
+        {% for article in articles %}
+            <tr>
+                <td>
+                    <a href="{{ path('showArticle', {'id': article.id }) }}">
+                        {{article.titre}}
+                    </a>
+                </td>
+
+                <td>
+                    {{article.description}}
+                </td>
+                    
+                <td>
+                    {{article.creation|date('d/m/Y')}}
+                </td>
+
+                <td>
+                    {{article.categorie}}
+                </td>
+
+                <td>
+                    <a href="{{ path('deleteArticle', {'id': article.id }) }}">
+                        Supprimer
+                    </a>
+                </td>
+            <tr>
+        {% else %}
+            <tr>
+                <td>Il n'y a pas d'articles</td>
+            <tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

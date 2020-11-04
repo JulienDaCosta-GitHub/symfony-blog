@@ -4,13 +4,14 @@
 
 {% block body %}
 
-<h1>Categories</h1>
+<h1>{{ 'categorie.titre'|trans }}</h1>
 
 <table border="1">
     <thread>
         <tr>
             <th>Nom</th>
             <th>Creation</th>
+            <th>Articles</th>
         </tr>
     </thread>
 
@@ -26,6 +27,9 @@
                 <td>
                     {{categorie.creation|date('d/m/Y')}}
                 </td>
+                <td>
+                    {{categorie.articles|length}}
+                </td>
 
                 <td>
                     <a href="{{ path('delete', {'id': categorie.id }) }}">
@@ -37,11 +41,12 @@
                 <td>Il n'y a pas de catégories</td>
             <tr>
         {% endfor %}
+
+        <h2>Ajouter une catégorie</h2>
+        {{ form(ajout) }}
+
     </tbody>
 </table>
-
-<h2>Ajouter une catégorie</h2>
-{{ form(ajout) }}
 
 
 {% endblock %}

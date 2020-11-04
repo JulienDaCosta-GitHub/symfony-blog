@@ -9,10 +9,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+* @Route("/article")
+*/
 class ArticleController extends AbstractController
 {
     /**
-     * @Route("/article", name="article")
+     * @Route("/", name="article")
      */
     public function index(Request $request): Response
     {
@@ -21,6 +24,7 @@ class ArticleController extends AbstractController
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
+
         if($form->isSubmitted() && $form->isValid()){
             $em->persist($article); // prépare la save
             $em->flush(); // execute la save
@@ -40,7 +44,7 @@ class ArticleController extends AbstractController
     }
 
 /**
- * @Route("/article/{id}", name="showArticle")
+ * @Route("/{id}", name="showArticle")
  */
     public function show(Article $article = null, Request $request) { //converti automatique l'id en une catégorie
         if($article == null) {
@@ -53,6 +57,7 @@ class ArticleController extends AbstractController
 
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
+
         if($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($article);
@@ -71,7 +76,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/article/delete/{id}", name="deleteArticle")
+     * @Route("/delete/{id}", name="deleteArticle")
      */
     public function delete(Article $article = null) {
         if($article == null) {
